@@ -22,7 +22,7 @@ linkerLibsDep := $(linkerLibsDep:-lm=)
 linkerLibsDep := $(linkerLibsDep:-lgcc=)
 
 # standard target
-$(targetDir)/$(targetFile) : $(OBJ) $(linkerLibsDep)
+$(targetDir)/$(targetFile) : $(OBJ)
 	@echo "Linking $@"
 	@mkdir -p `dirname $@`
 	$(PRINT_CMD) $(LD) -o $@ $(OBJ) $(LDFLAGS) $(STDCXXLIB)

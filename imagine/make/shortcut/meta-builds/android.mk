@@ -104,28 +104,30 @@ ifdef android_assetsSrcPath
 android_assetsPath := $(android_targetPath)/assets
 $(android_assetsPath) :
 	@mkdir -p $(@D)
-	ln -fs $(android_assetsSrcPath) $@
+	cp -r $(android_assetsSrcPath) $@
 endif
 
 ifneq ($(wildcard $(resPath)/icons/icon-48.png),)
 android_drawableMdpiIconPath := $(android_targetPath)/res/drawable-mdpi/icon.png
 $(android_drawableMdpiIconPath) :
 	@mkdir -p $(@D)
-	ln -fs $(resPath)/icons/icon-48.png $@
+	@echo "resPath:$(resPath)/icons/icon-48.png"
+	@echo "ln target $@"
+	cp $(resPath)/icons/icon-48.png $@
 endif
 
 ifneq ($(wildcard $(resPath)/icons/icon-72.png),)
 android_drawableHdpiIconPath := $(android_targetPath)/res/drawable-hdpi/icon.png
 $(android_drawableHdpiIconPath) :
 	@mkdir -p $(@D)
-	ln -fs $(resPath)/icons/icon-72.png $@
+	cp $(resPath)/icons/icon-72.png $@
 endif
 
 ifneq ($(wildcard $(resPath)/icons/icon-96.png),)
 android_drawableXhdpiIconPath := $(android_targetPath)/res/drawable-xhdpi/icon.png
 $(android_drawableXhdpiIconPath) :
 	@mkdir -p $(@D)
-	ln -fs $(resPath)/icons/icon-96.png $@
+	cp $(resPath)/icons/icon-96.png $@
 endif
 
 ifneq ($(wildcard $(resPath)/icons/icon-144.png),)
@@ -133,7 +135,7 @@ android_drawableXxhdpiIconPath := $(android_targetPath)/res/drawable-xxhdpi/icon
 # "iconbig" used by Xperia Play launcher, links to xxhdpi icon
 $(android_drawableXxhdpiIconPath) :
 	@mkdir -p $(@D) $(android_targetPath)/res/drawable-mdpi/
-	ln -fs $(resPath)/icons/icon-144.png $(android_targetPath)/res/drawable-mdpi/icon144.png
+	cp $(resPath)/icons/icon-144.png $(android_targetPath)/res/drawable-mdpi/icon144.png
 	printf '<?xml version="1.0" encoding="utf-8"?>\n<bitmap xmlns:android="http://schemas.android.com/apk/res/android" android:src="@drawable/icon144" />\n' > $@
 	cp $@ $(android_targetPath)/res/drawable-mdpi/iconbig.xml
 endif
@@ -142,7 +144,7 @@ ifneq ($(wildcard $(resPath)/icons/icon-192.png),)
 android_drawableXxxhdpiIconPath := $(android_targetPath)/res/drawable-xxxhdpi/icon.png
 $(android_drawableXxxhdpiIconPath) :
 	@mkdir -p $(@D)
-	ln -fs $(resPath)/icons/icon-192.png $@
+	cp $(resPath)/icons/icon-192.png $@
 endif
 
 android_drawableIconPaths := $(android_drawableMdpiIconPath) $(android_drawableHdpiIconPath) \
@@ -152,7 +154,7 @@ ifdef android_ouyaBuild
  android_drawableXhdpiOuyaIconPath := $(android_targetPath)/res/drawable-xhdpi/ouya_icon.png
  $(android_drawableXhdpiOuyaIconPath) :
 	@mkdir -p $(@D)
-	ln -fs $(resPath)/icons/ouya_icon.png $@
+	cp $(resPath)/icons/ouya_icon.png $@
  android_drawableIconPaths := $(android_drawableXhdpiIconPath) $(android_drawableXhdpiOuyaIconPath)
 else
  ifneq ($(wildcard $(resPath)/icons/tv-banner.png),)
@@ -165,7 +167,7 @@ endif
 ifdef android_drawableTVBannerPath
 $(android_drawableTVBannerPath) :
 	@mkdir -p $(@D)
-	ln -fs $(resPath)/icons/tv-banner.png $@
+	cp $(resPath)/icons/tv-banner.png $@
 endif
 
 android_imagineJavaSrcPath := $(android_targetPath)/src/com/imagine
@@ -249,7 +251,7 @@ ifneq ($(wildcard $(android_resSrcPath)/proguard.cfg),)
 android_proguardConfPath := $(android_targetPath)/proguard.cfg
 $(android_proguardConfPath) : | $(android_buildXml)
 	@mkdir -p $(@D)
-	ln -fs $(android_resSrcPath)/proguard.cfg $@
+	cp $(android_resSrcPath)/proguard.cfg $@
 endif
 
 # native libs
